@@ -1,8 +1,8 @@
-from mesop import App
+import mesop as me
 
-app = App()
-
-@app.page("/")
-def main():
-    app.text("My Mesop App on AWS App Runner", variant="heading1")
-    app.text("Hello from AWS!")
+@me.page()
+def hello_world():
+    me.text("Hello, World!")
+	
+if __name__ == "__main__":
+    me.run()
