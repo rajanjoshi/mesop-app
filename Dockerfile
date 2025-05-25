@@ -14,5 +14,7 @@ COPY . .
 # Expose the port App Runner expects
 EXPOSE 8080
 
+ENV PORT 8080
+
 # Run the Mesop app
-CMD ["mesop", "serve"]
+CMD ["gunicorn", "--bind", ":8080", "app:me"]
