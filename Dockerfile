@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 8080
 
 # Run the Mesop app
-CMD ["mesop", "serve", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["mesop", "serve", "app:app"]
