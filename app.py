@@ -32,5 +32,4 @@ def retrieve_from_kb(query: str) -> str:
     except Exception as e:
         return f"Error: {str(e)}"
 
-if __name__ == "__main__":
-    me.run()
+
