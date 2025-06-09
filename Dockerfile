@@ -1,20 +1,32 @@
-# Use official Python image
+# Use a lightweight and modern Python image
 FROM python:3.11-slim
 
-# Set work directory
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PORT=3000 \
+    HOST=0.0.0.0
+
+# Set working directory
 WORKDIR /app
 
-# Install pip dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install system dependencies for boto3 + SSL
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libssl-dev \
+    libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the rest of your code
+# Copy dependency list and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip \
+ && pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
 COPY . .
 
-# Expose the port App Runner expects
-EXPOSE 8080
+# Expose the port Mesop listens on
+EXPOSE 3000
 
-ENV PORT 8080
-
-# Run the Mesop app
-CMD ["gunicorn", "--bind", ":8080", "app:me"]
+# Command for App Runner to start the app
+CMD ["python", "app.py"]
