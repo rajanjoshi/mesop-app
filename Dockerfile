@@ -29,4 +29,4 @@ COPY . .
 EXPOSE 3000
 
 # Command for App Runner to start the app
-CMD ["python", "app.py"]
+CMD ["mesop", "serve"]
